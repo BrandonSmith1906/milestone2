@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holidays 4U!</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+    <link rel="stylesheet" href="css/style.css">     
+	<link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-spy="scroll" data-target="#mainNav">  
+  <div class="topnav" id="myTopnav">
+  <a href="#home" class="active">Home</a>
+  <a href="#services">Services</a>
+  <a href="#gallary">Gallary</a>
+  <a href="#hotpackages">Hot Packages</a>
+  <a href="#contact">Contact</a>
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    <i class="fa fa-bars"></i>
+  </a>
+</div>
+  
+  <div class="container-fluid">
+      <div id="pages">
+          <section id="home">
+              <div class="container">
+                  <div class="row">
+                      <div class="col-12">
+                          <header class="header">
+                              
+                          </header>
+                      </div>
+                  </div>
+
+                  <div class="row" id="homeheading">
+                      
+                      <div class="col-sm-6">
+                          <h1> Holidays 4U  </h1>
+                          
+
+                          <p> It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. 
+							 The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 
+							 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page
+							 editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites
+							 still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose 
+							 (injected humour and the like). </p>
+
+                     </div>
+					 <div class="col-sm-6">
+				
+					<link rel="stylesheet" href="css/googleMapAPI.css"/>
+					<div class="hotel-search">
+					  <div id="findhotels">
+						Find hotels in:
+					  </div>
+
+					  <div id="locationField">
+						<input id="autocomplete" class="form-control" placeholder="Enter a city" type="text" />
+					  </div>
+
+					  <div id="controls">
+						<select id="country" class="form-control">
+						  <option value="all" selected>All</option>
+						  <option value="au">Australia</option>
+						  <option value="br">Brazil</option>
+						  <option value="ca">Canada</option>
+						  <option value="fr">France</option>
+						  <option value="de">Germany</option>
+						  <option value="mx">Mexico</option>
+						  <option value="nz">New Zealand</option>
+						  <option value="it">Italy</option>
+						  <option value="za">South Africa</option>
+						  <option value="es">Spain</option>
+						  <option value="pt">Portugal</option>
+						  <option value="us">U.S.A.</option>
+						  <option value="uk">United Kingdom</option>
+						</select>
+					  </div>
+					</div>
+
+					<div id="map"></div>
+
+					<div id="listing">
+					  <table id="resultsTable">
+						<tbody id="results"></tbody>
+					  </table>
+					</div>
+
+					<div style="display: none">
+					  <div id="info-content">
+						<table>
+						  <tr id="iw-url-row" class="iw_table_row">
+							<td id="iw-icon" class="iw_table_icon"></td>
+							<td id="iw-url"></td>
+						  </tr>
+						  <tr id="iw-address-row" class="iw_table_row">
+							<td class="iw_attribute_name">Address:</td>
+							<td id="iw-address"></td>
+						  </tr>
+						  <tr id="iw-phone-row" class="iw_table_row">
+							<td class="iw_attribute_name">Telephone:</td>
+							<td id="iw-phone"></td>
+						  </tr>
+						  <tr id="iw-rating-row" class="iw_table_row">
+							<td class="iw_attribute_name">Rating:</td>
+							<td id="iw-rating"></td>
+						  </tr>
+						  <tr id="iw-website-row" class="iw_table_row">
+							<td class="iw_attribute_name">Website:</td>
+							<td id="iw-website"></td>
+						  </tr>
+						</table>
+					  </div>
+					</div>
+					<script type="text/javascript">
+						var map, places, infoWindow;
+						var markers = [];
+						var autocomplete;
+						var MARKER_PATH = 'https://developers.google.com/maps/documentation/javascript/images/marker_green';
+						var hostnameRegexp = new RegExp('^https?://.+?/');
+
+						var countries = {
+						  'au': { center: {lat: -25.3, lng: 133.8}, zoom: 4 },
+						  'br': {center: {lat: -14.2, lng: -51.9},zoom: 3},
+						'ca': {center: {lat: 62, lng: -110.0},zoom: 3},
+						'fr': {center: {lat: 46.2, lng: 2.2},zoom: 5},
+						  'de': {center: {lat: 51.2, lng: 10.4},zoom: 5},
+						  'mx': {center: {lat: 23.6, lng: -102.5},zoom: 4},
+						  'nz': {center: {lat: -40.9, lng: 174.9},zoom: 5},
+						  'it': {center: {lat: 41.9, lng: 12.6},zoom: 5},
+						  'za': {center: {lat: -30.6, lng: 22.9},zoom: 5 },
+						  'es': {center: {lat: 40.5, lng: -3.7},zoom: 5},
+						  'pt': {center: {lat: 39.4, lng: -8.2},zoom: 6},
+						  'us': {center: {lat: 37.1, lng: -95.7},zoom: 3},
+						  'uk': {center: {lat: 54.8, lng: -4.6},zoom: 5}
+						};
+
+						function initMap() {
+						  map = new google.maps.Map(document.getElementById('map'), {
+							zoom: countries['us'].zoom,
+							center: countries['us'].center,
+							mapTypeControl: false,
+							panControl: false,
+							zoomControl: false,
+							streetViewControl: false
+						  });
+
+						  infoWindow = new google.maps.InfoWindow({
+							content: document.getElementById('info-content')
+						  });
+
+						  // Create the autocomplete object and associate it with the UI input control.
+						  // Restrict the search to the default country, and to place type "cities".
+						  autocomplete = new google.maps.places.Autocomplete(
+							  /** @type {!HTMLInputElement} */ (
+								  document.getElementById('autocomplete')), {
+								types: ['(cities)']
+							  });
+						  places = new google.maps.places.PlacesService(map);
+
+						  autocomplete.addListener('place_changed', onPlaceChanged);
+
+						  // Add a DOM event listener to react when the user selects a country.
+						  document.getElementById('country').addEventListener(
+							  'change', setAutocompleteCountry);
+						}
+
+						// When the user selects a city, get the place details for the city and
+						// zoom the map in on the city.
+						function onPlaceChanged() {
+						  var place = autocomplete.getPlace();
+						  if (place.geometry) {
+							map.panTo(place.geometry.location);
+							map.setZoom(15);
+							search();
+						  } else {
+							document.getElementById('autocomplete').placeholder = 'Enter a city';
+						  }
+						}
+
+						// Search for hotels in the selected city, within the viewport of the map.
+						function search() {
+						  var search = {
+							bounds: map.getBounds(),
+							types: ['lodging']
+						  };
+
+						  places.nearbySearch(search, function(results, status) {
+							if (status === google.maps.places.PlacesServiceStatus.OK) {
+							  clearResults();
+							  clearMarkers();
+							  // Create a marker for each hotel found, and
+							  // assign a letter of the alphabetic to each marker icon.
+							  for (var i = 0; i < results.length; i++) {
+								var markerLetter = String.fromCharCode('A'.charCodeAt(0) + (i % 26));
+								var markerIcon = MARKER_PATH + markerLetter + '.png';
+								// Use marker animation to drop the icons incrementally on the map.
+								markers[i] = new google.maps.Marker({
+								  position: results[i].geometry.location,
+								  animation: google.maps.Animation.DROP,
+								  icon: markerIcon
+								});
+								// If the user clicks a hotel marker, show the details of that hotel
+								// in an info window.
+								markers[i].placeResult = results[i];
+								google.maps.event.addListener(markers[i], 'click', showInfoWindow);
+								setTimeout(dropMarker(i), i * 100);
+								addResult(results[i], i);
+							  }
+							}
+						  });
+						}
+
+						function clearMarkers() {
+						  for (var i = 0; i < markers.length; i++) {
+							if (markers[i]) {
+							  markers[i].setMap(null);
+							}
+						  }
+						  markers = [];
+						}
+
+						// Set the country restriction based on user input.
+						// Also center and zoom the map on the given country.
+						function setAutocompleteCountry() {
+						  var country = document.getElementById('country').value;
+						  if (country == 'all') {
+							autocomplete.setComponentRestrictions({'country': []});
+							map.setCenter({lat: 15, lng: 0});
+							map.setZoom(2);
+						  } else {
+							autocomplete.setComponentRestrictions({'country': country});
+							map.setCenter(countries[country].center);
+							map.setZoom(countries[country].zoom);
+						  }
+						  clearResults();
+						  clearMarkers();
+						}
+
+						function dropMarker(i) {
+						  return function() {
+							markers[i].setMap(map);
+						  };
+						}
+
+						function addResult(result, i) {
+						  var results = document.getElementById('results');
+						  var markerLetter = String.fromCharCode('A'.charCodeAt(0) + (i % 26));
+						  var markerIcon = MARKER_PATH + markerLetter + '.png';
+
+						  var tr = document.createElement('tr');
+						  tr.style.backgroundColor = (i % 2 === 0 ? '#F0F0F0' : '#FFFFFF');
+						  tr.onclick = function() {
+							google.maps.event.trigger(markers[i], 'click');
+						  };
+
+						  var iconTd = document.createElement('td');
+						  var nameTd = document.createElement('td');
+						  var icon = document.createElement('img');
+						  icon.src = markerIcon;
+						  icon.setAttribute('class', 'placeIcon');
+						  icon.setAttribute('className', 'placeIcon');
+						  var name = document.createTextNode(result.name);
+						  iconTd.appendChild(icon);
+						  nameTd.appendChild(name);
+						  tr.appendChild(iconTd);
+						  tr.appendChild(nameTd);
+						  results.appendChild(tr);
+						}
+
+						function clearResults() {
+						  var results = document.getElementById('results');
+						  while (results.childNodes[0]) {
+							results.removeChild(results.childNodes[0]);
+						  }
+						}
+
+						// Get the place details for a hotel. Show the information in an info window,
+						// anchored on the marker for the hotel that the user selected.
+						function showInfoWindow() {
+						  var marker = this;
+						  places.getDetails({placeId: marker.placeResult.place_id},
+							  function(place, status) {
+								if (status !== google.maps.places.PlacesServiceStatus.OK) {
+								  return;
+								}
+								infoWindow.open(map, marker);
+								buildIWContent(place);
+							  });
+						}
+
+						// Load the place information into the HTML elements used by the info window.
+						function buildIWContent(place) {
+						  document.getElementById('iw-icon').innerHTML = '<img class="hotelIcon" ' +
+							  'src="' + place.icon + '"/>';
+						  document.getElementById('iw-url').innerHTML = '<b><a href="' + place.url +
+							  '">' + place.name + '</a></b>';
+						  document.getElementById('iw-address').textContent = place.vicinity;
+
+						  if (place.formatted_phone_number) {
+							document.getElementById('iw-phone-row').style.display = '';
+							document.getElementById('iw-phone').textContent =
+								place.formatted_phone_number;
+						  } else {
+							document.getElementById('iw-phone-row').style.display = 'none';
+						  }
+
+						  // Assign a five-star rating to the hotel, using a black star ('&#10029;')
+						  // to indicate the rating the hotel has earned, and a white star ('&#10025;')
+						  // for the rating points not achieved.
+						  if (place.rating) {
+							var ratingHtml = '';
+							for (var i = 0; i < 5; i++) {
+							  if (place.rating < (i + 0.5)) {
+								ratingHtml += '&#10025;';
+							  } else {
+								ratingHtml += '&#10029;';
+							  }
+							document.getElementById('iw-rating-row').style.display = '';
+							document.getElementById('iw-rating').innerHTML = ratingHtml;
+							}
+						  } else {
+							document.getElementById('iw-rating-row').style.display = 'none';
+						  }
+
+						  // The regexp isolates the first part of the URL (domain plus subdomain)
+						  // to give a short URL for displaying in the info window.
+						  if (place.website) {
+							var fullUrl = place.website;
+							var website = hostnameRegexp.exec(place.website);
+							if (website === null) {
+							  website = 'http://' + place.website + '/';
+							  fullUrl = website;
+							}
+							document.getElementById('iw-website-row').style.display = '';
+							document.getElementById('iw-website').textContent = website;
+						  } else {
+							document.getElementById('iw-website-row').style.display = 'none';
+						  }
+						}
+					</script>
+					<script src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initMap&key=AIzaSyC4edu7d3L8oZAdpeoKM2t8UfR4Kb0eaQA" async defer></script>
+					
+					 </div>
+                  </div>
+              </div>
+          </section>          
+
+          <section>
+              <div class="container">
+                  
+                  <div class="row" id="services">
+					<h1><b>Services</b></h1>
+
+                      <div class="col-sm-55" >
+                          
+                          <h2> <b>  Summer Vacations   </b> </h2>
+						   <p>
+							We have great packages for summer vacations
+							
+							 It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. 
+							 The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 
+							 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page
+							 editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites
+							 still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose 
+							 (injected humour and the like).
+
+							
+						  </p>
+                      </div>
+
+                      <div class="col-sm-16" >
+                         
+                          <h2> <b>  Cruise Trips   </b> </h2> 
+						  <p>
+							We have great packages for Cruise Trips
+							It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. 
+							 The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 
+							 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page
+							 editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites
+							 still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose 
+							 (injected humour and the like).
+						  </p>
+                      </div>
+
+                      <div class="col-sm-17" >
+                         
+                          <h2>  <b>  Family Packages   </b> </h2>
+						   <p>
+							We have great packages for  Family Packages
+							It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. 
+							 The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 
+							 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page
+							 editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites
+							 still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose 
+							 (injected humour and the like).
+						  </p>
+                      </div>
+
+                  </div>                  
+
+
+              </div>
+
+
+          </section>
+
+
+
+          <!--  Gallary  -->  
+
+          <section id="gallary">
+              <div class="container">
+
+                  <div class="row">
+                      <div class="col-12">
+                          <header class="header">
+                              <h1>  <b> Gallary   </b>  </h1>
+                          </header>
+                      </div>
+                  </div>
+
+                  <!--  Gallaryrow 1   -->  
+
+                  <div class="row" class="gallaryrow1">
+
+
+                      <div class="col-4" >
+                          <img src = "Assets/gallary1.JPG" alt="hello jpg" width= "350" height = "350" align = "right"/>
+
+                      </div>
+
+                      <div class="col-sm-4">
+                          <img src = "Assets/gallary2.JPG" alt="hello jpg" width= "350" height = "350" align = "middle"  />
+
+                      </div>
+
+                      <div class="col-sm-4">
+                          <img src = "Assets/gallary3.JPG" alt="hello jpg" width= "350" height = "350" align = "right"  />
+
+                      </div>
+
+                  </div>
+
+                  <!--  Gallary row 2   -->  
+
+                  <div class="row" class="gallaryrow2" >
+                      <div class="col-sm-4" >
+                          <img src = "Assets/gallary4.JPG" alt="hello jpg" width= "350" height = "350" align = "right" />
+
+                      </div>
+
+                      <div class="col-sm-4" >
+                          <img src = "Assets/gallary5.JPG" alt="hello jpg" width= "350" height = "350" align = "middle" />
+
+                      </div>
+
+                      <div class="col-sm-4" >
+                          <img src = "Assets/gallary6.JPG" alt="hello jpg" width= "350" height = "350" align = "right"  />
+
+                      </div>
+
+                  </div>
+
+              </div>
+          </section>
+
+              <!--  Hot Packages -->  
+
+              <section id="hotpackages">
+                  <div class="container">
+
+                      <div class="row">
+						<h1 style = "text-align:center;"> Hot Packages </h1>
+
+                          <div class="col-sm-4" >
+						  <h2>  Deal 1  </h2>
+                             <p>Five Day Package to turkey for family of 4 
+							 It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. 
+							 The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 
+							 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page
+							 editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites
+							 still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose 
+							 (injected humour and the like).
+							 
+							 
+							 </p>
+
+                          </div>
+
+                          <div class="col-sm-4" >
+                         
+                             <h2>  Deal 2 </h2>
+                             <p>Cruise holiday for 7 days
+							 It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. 
+							 The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 
+							 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page
+							 editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites
+							 still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose 
+							 (injected humour and the like).
+
+							 </p>
+
+                          </div>
+
+                          <div class="col-sm-4" >
+                             <h2>  Deal 3</h2>
+                             <p>2 night stay in five start hotel everything included with return ticket for just £200.
+							 It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. 
+							 The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 
+							 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page
+							 editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites
+							 still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose 
+							 (injected humour and the like).
+
+							 </p>
+
+                          </div>
+
+                      </div>                      
+
+                  </div>
+              </section>
+
+              
+
+              <section id="contact">
+                  <div class="container">                            
+
+                      <div class="row">
+                          <div id="contactbox" class="col-6" >
+
+                              <h2> <b> Contact  </b>  </h2>
+                              <label>Name</label>  <br />                          
+
+
+                              <input type="text" id="username"  placeholder= "Enter Name"> <br />
+                              <label>Email Address  </label>  <br />  
+                              <input type="text" id="email" placeholder="Enter Email"> <br />
+
+                              <label>Phone No  </label>  <br />  
+                              <input type="text" id="phone" placeholder="Enter Phone No"> <br />
+              
+                              <br />
+                              
+                              <textarea rows="6" cols="75" placeholder= "Please enter text here">
+                              </textarea> 
+                              
+                              <button type="button" width="50"> Send </button>
+                        </div>                               
+                          
+                          
+
+                          </div>
+                      </div>                           
+                  
+              </section>
+              </div>
+      </div>
+
+
+      <section>
+          <footer class="container-fluid">
+              <div class="row">
+                  <div class="col-12 text-center">
+                      <p>School of Engineering &amp; Computer Science, Open University<br>
+                          &copy; 2019 Open University</p>
+                  </div>
+              </div>
+          </footer>
+      </section>
+	    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.compatibility.min.js"></script>
+
+   <script>
+          $(function() {
+              $('#mainNav a').on('click', function(event) {
+                  var $anchor = $(this);
+                  $('html, body').stop().animate({
+                      scrollTop: $($anchor.attr('href')).offset().top
+                  }, 1500, 'easeInOutExpo');
+                  return false;
+              });
+
+              // Activate scrollspy to add active class to navbar items on scroll
+              $('body').scrollspy({
+                  target: '#mainNav'
+              });
+
+              // Closes responsive menu when a link is clicked
+              $('.navbar-collapse>ul>li>a').click(function() {
+                  $('.navbar-collapse').collapse('hide');
+              });
+          }); 
+
+      </script>   
+            <!-- Quotes -->
+            <section class="quotes">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="page-header">
+                            
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<footer>
+     <a href="https://twitter.com/thebeatles?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">
+     <img src="https://cdn3.iconfinder.com/data/icons/2018-social-media-logotypes/1000/2018_social_media_popular_app_logo_twitter-512.png" height="40px" style="pozition:absolute; margin:5px; padding:5px;">
+    </a>
+    
+    <a href="https://en-gb.facebook.com/thebeatles/">
+     <img src="https://ya-webdesign.com/images/facebook-logo-png-transparent-background-5.png" height="40px" style="pozition:absolute; margin:5px; padding:5px;">
+     </a>
+     
+     <a href="https://www.instagram.com/thebeatles/?hl=en">
+     <img src="https://cdn3.iconfinder.com/data/icons/2018-social-media-logotypes/1000/2018_social_media_popular_app_logo_instagram-512.png" height="40px" style="pozition:absolute; margin:5px; padding:5px;">
+</a>
+ </footer>
+    </div>
+  
+</body>
+
+</html> 

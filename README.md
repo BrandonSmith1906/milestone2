@@ -41,10 +41,16 @@ Deployment|
 •	I deployed my website on github, normally I would git commit my work through the bottom of my cloud9 workspace but I took a different approach this time as I put the code into notes then uploaded them as files onto git.
 I can locally run my code on my cloud 9 aws
 Credits
+
+
 Content|
 •	Some text was taken from Wikipedia yet never was there more than a sentence at a time.
+
+
 Media|
 All the images used on my website were obtained from google.
+
+
 Acknowledgements|
 I received inspiration for this project from all the other holiday websites that are already established.
 

@@ -34,17 +34,17 @@ o	In order to insert my map ect.
 
 
     
-Testing
+Testing|
 My website has been tested on many browsers such as ‘Firefox, internet explorer, google chrome & google’ it has worked on a dell laptop, a ThinkPad & a mac. This website has also worked on other devices such as a tablet & an iPhone as I made the website responsive. 
 
-Deployment
+Deployment|
 •	I deployed my website on github, normally I would git commit my work through the bottom of my cloud9 workspace but I took a different approach this time as I put the code into notes then uploaded them as files onto git.
 I can locally run my code on my cloud 9 aws
 Credits
-Content
+Content|
 •	Some text was taken from Wikipedia yet never was there more than a sentence at a time.
-Media
+Media|
 All the images used on my website were obtained from google.
-Acknowledgements
+Acknowledgements|
 I received inspiration for this project from all the other holiday websites that are already established.
 

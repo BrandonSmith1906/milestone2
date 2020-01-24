@@ -5,8 +5,6 @@ Holidays 4U
 . 
  
  
- 
-Essentially, this part is your sales pitch.
 UX
 This website is for external users who would like to get great prices on the best quality hotels, it is useful as they can search any country in the world for hotels and it will give them a selection of many places to accommodate themselves. They simply search the area they’re looking to stay in and simply choose a hotel; it also comes with information on cruises & family packages.
 Features
